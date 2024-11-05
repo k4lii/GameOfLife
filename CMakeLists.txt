@@ -32,3 +32,21 @@ target_link_libraries(GameOfLife
     sfml-window
     sfml-system
 )
+
+# Configuration de CPack pour générer des installateurs multiplateformes
+include(CPack)
+
+# Choisir le type d'installateur en fonction de la plateforme
+if(WIN32)
+    set(CPACK_GENERATOR "WIX") # ou NSIS pour un EXE
+elseif(APPLE)
+    set(CPACK_GENERATOR "DragNDrop")
+elseif(UNIX)
+    set(CPACK_GENERATOR "DEB;RPM") # Génère des paquets .deb et .rpm
+endif()
+
+# Informations du package
+set(CPACK_PACKAGE_NAME "GameOfLife")
+set(CPACK_PACKAGE_VERSION "0.1")
+set(CPACK_PACKAGE_CONTACT "lorris@fortea.com")
+set(CPACK_DEBIAN_PACKAGE_MAINTAINER "lorris@fortea.com")
