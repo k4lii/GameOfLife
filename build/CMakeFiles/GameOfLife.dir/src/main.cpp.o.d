@@ -234,4 +234,4 @@ CMakeFiles/GameOfLife.dir/src/main.cpp.o: \
  /usr/include/SFML/Graphics/Sprite.hpp \
  /usr/include/SFML/Graphics/Text.hpp \
  /usr/include/SFML/Graphics/VertexBuffer.hpp \
- /home/lorris/GameOfLife/src/../include/GameOfLife.h
+ /home/lorris/GameOfLife/include/GameOfLife.h
