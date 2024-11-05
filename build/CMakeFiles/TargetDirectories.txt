@@ -1,5 +1,0 @@
-/Users/lforham/Dev/GameOfLife/build/CMakeFiles/GameOfLife.dir
-/Users/lforham/Dev/GameOfLife/build/CMakeFiles/package.dir
-/Users/lforham/Dev/GameOfLife/build/CMakeFiles/package_source.dir
-/Users/lforham/Dev/GameOfLife/build/CMakeFiles/edit_cache.dir
-/Users/lforham/Dev/GameOfLife/build/CMakeFiles/rebuild_cache.dir
