@@ -8,6 +8,7 @@ brew install sfml
 ./compile.sh
 
 #Objectives
+-> add de l'ia -> utilisation d'un model local tel que mistral
 -> create a modular game that read complex config cells's files
 -> modular code for linux/mac/windows
 -> most optimized/clean code i can
