@@ -3,3 +3,13 @@ sudo apt-get install libsfml-dev
 
 #install SFML MACOS
 brew install sfml
+
+#Compile
+./compile.sh
+
+#Objectives
+-> create a modular game that read complex config cells's files
+-> modular code for linux/mac/windows
+-> most optimized/clean code i can
+-> add du réseau, genre faire des cluster de jeu de la vie en réseau par exemple
+    -> lancer plusieurs instances du jeu de la vie et avoir un tableau de bord centrale qui affiche le grand tableau qui lie tout les autres connecté ensemble
