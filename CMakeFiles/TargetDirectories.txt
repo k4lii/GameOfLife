@@ -1,3 +1,0 @@
-/home/lorris/GameOfLife/CMakeFiles/GameOfLife.dir
-/home/lorris/GameOfLife/CMakeFiles/edit_cache.dir
-/home/lorris/GameOfLife/CMakeFiles/rebuild_cache.dir

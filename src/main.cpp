@@ -1,5 +1,5 @@
 #include <SFML/Graphics.hpp>
-#include "GameOfLife.h"
+#include "GameOfLife.hpp"
 
 int main() {
     sf::RenderWindow window(sf::VideoMode(800, 600), "Game of Life");

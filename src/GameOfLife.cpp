@@ -1,4 +1,4 @@
-#include "GameOfLife.h"
+#include "GameOfLife.hpp"
 
 GameOfLife::GameOfLife(int width, int height) : width(width), height(height) {
     initGrid();

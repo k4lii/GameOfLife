@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/GameOfLife.dir/src/main.cpp.o CMakeFiles/GameOfLife.dir/src/GameOfLife.cpp.o -o GameOfLife  -lsfml-graphics -lsfml-window -lsfml-system 
