@@ -23,8 +23,11 @@ elseif(UNIX)
     find_package(SFML 2.6 COMPONENTS graphics window system REQUIRED)
 endif()
 
-# Ajouter les fichiers source
-add_executable(GameOfLife src/main.cpp src/GameOfLife.cpp)
+# Récupérer tous les fichiers .cpp dans le dossier src
+file(GLOB SOURCES "src/*.cpp")
+
+# Ajouter les fichiers source à l'exécutable
+add_executable(GameOfLife ${SOURCES})
 
 # Lier les bibliothèques SFML
 target_link_libraries(GameOfLife
