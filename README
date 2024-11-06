@@ -9,8 +9,18 @@ brew install sfml
 
 #Objectives
 -> add de l'ia -> utilisation d'un model local tel que mistral
--> create a modular game that read complex config cells's files
+-> create a modular game that read complex config cells's RLE files
 -> modular code for linux/mac/windows
 -> most optimized/clean code i can
 -> add du réseau, genre faire des cluster de jeu de la vie en réseau par exemple
     -> lancer plusieurs instances du jeu de la vie et avoir un tableau de bord centrale qui affiche le grand tableau qui lie tout les autres connecté ensemble
+
+NOTES:
+
+-> Convertir un Fichier LIF en RLE avec Golly
+
+Etapes code:
+
+Importer le Fichier RLE : Utilise un parseur RLE simple pour lire la configuration initiale de la grille.
+Appliquer les Règles de Conway : Implémente uniquement les règles de base (naissance, survie, mort) dans le code.
+Boucle Principale : Actualise la grille à chaque itération et affiche l’état de chaque cellule.
