@@ -1,23 +1,16 @@
-#include <SFML/Graphics.hpp>
 #include "GameOfLife.hpp"
+#include <SFML/Graphics.hpp>
 
-int main() {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Game of Life");
 
-    GameOfLife game(800, 600);
+int main()
+{
 
-    while (window.isOpen()) {
-        sf::Event event;
-        while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
-
-        window.clear();
-        game.update();
-        game.draw(window);
-        window.display();
-    }
-
+    GameOfLife GameOfLife(10,10);
+    GameOfLife.RandGridCells();
+    GameOfLife.printGrid();
+    // while (GameOfLife.window.isOpen()) {
+    //     GameOfLife.handle_event();
+    //     GameOfLife.draw();
+    // }
     return 0;
 }

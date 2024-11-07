@@ -24,3 +24,16 @@ Etapes code:
 Importer le Fichier RLE : Utilise un parseur RLE simple pour lire la configuration initiale de la grille.
 Appliquer les Règles de Conway : Implémente uniquement les règles de base (naissance, survie, mort) dans le code.
 Boucle Principale : Actualise la grille à chaque itération et affiche l’état de chaque cellule.
+
+
+Changer de pilote graphique: (glxinfo | grep "OpenGL renderer")
+
+[Direct3D 12] -> Très performant
+export MESA_LOADER_DRIVER_OVERRIDE=d3d12
+
+[OpenGL natif] -> Très performant
+export MESA_LOADER_DRIVER_OVERRIDE=gl
+
+[LLVMpipe (rendu logiciel)] -> Pas performant
+export MESA_LOADER_DRIVER_OVERRIDE=llvmpipe
+export LIBGL_ALWAYS_SOFTWARE=1

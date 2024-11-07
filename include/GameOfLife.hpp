@@ -7,14 +7,18 @@
 class GameOfLife {
 public:
     GameOfLife(int width, int height);
-    void update();
-    void draw(sf::RenderWindow &window);
+    // void update();
+    void draw();
+    void handle_event();
+    void RandGridCells();
+    void printGrid() const; // Print grid to console for debugging
+    sf::RenderWindow window;
 
 private:
+    std::vector<std::vector<bool>> game_map;
+    sf::Event event;
     int width;
     int height;
-    std::vector<std::vector<bool>> grid;
-    std::vector<std::vector<bool>> nextGrid;
 
     void initGrid();
     int countNeighbors(int x, int y);
