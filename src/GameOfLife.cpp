@@ -1,10 +1,9 @@
 #include "GameOfLife.hpp"
 #include <iostream>
 
-GameOfLife::GameOfLife(int width, int height, int cell_size)  : cell_size(cell_size), width(width), height(height), window(sf::VideoMode(width, height), "SFML works!") {
+GameOfLife::GameOfLife(int width, int height, int cell_size)  : cell_size(cell_size), width(width), height(height), window(sf::VideoMode(width * cell_size, height * cell_size), "Game of Life - SFML"), vertices_tab(sf::Quads, width * height * 4) {
     this->window.setVerticalSyncEnabled(false);
-    this->window(sf::VideoMode(width * cell_size, height * cell_size), "Game of Life - SFML");
-    this->vertices_tab(sf::Quads, width * height * 4); // Create a vertex array for the grid
+    // this->vertices_tab(sf::Quads, width * height * 4); // Create a vertex array for the grid
     InitGrid();
 }
 
@@ -24,13 +23,13 @@ void GameOfLife::Update(){
     for (int y = 0; y < this->width; ++y) {
         for (int x = 0; x < this->height; ++x) {
             // Positions des sommets
-            sf::Vector2f topLeft(x * this->this->cellSize, y * this->cellSize);
-            sf::Vector2f topRight((x + 1) * this->cellSize, y * this->cellSize);
-            sf::Vector2f bottomRight((x + 1) * this->cellSize, (y + 1) * this->cellSize);
-            sf::Vector2f bottomLeft(x * this->cellSize, (y + 1) * this->cellSize);
+            sf::Vector2f topLeft(x * this->cell_size, y * this->cell_size);
+            sf::Vector2f topRight((x + 1) * this->cell_size, y * this->cell_size);
+            sf::Vector2f bottomRight((x + 1) * this->cell_size, (y + 1) * this->cell_size);
+            sf::Vector2f bottomLeft(x * this->cell_size, (y + 1) * this->cell_size);
 
             // Couleur pour cette cellule
-            sf::Color cellColor = grid[y][x] == 1 ? sf::Color::Green : sf::Color::Black;
+            sf::Color cellColor = this->game_map[y][x] == 1 ? sf::Color::Green : sf::Color::Black;
 
             // Affecter directement les sommets
             this->vertices_tab[index++] = sf::Vertex(topLeft, cellColor);
@@ -43,7 +42,7 @@ void GameOfLife::Update(){
 
 void GameOfLife::SFMLDraw() {
     this->window.clear();
-    this->window.draw(this->gridVertices); //afficher l'array de vertex
+    this->window.draw(this->vertices_tab); //afficher l'array de vertex
     this->window.display();
 }
 

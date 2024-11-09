@@ -11,7 +11,7 @@ int main()
     //coder la logique du jeu de la vie
 
     while (GameOfLife.window.isOpen()) {
-        GameOfLife.SFMFEvent();
+        GameOfLife.SFMLEvents();
         GameOfLife.Update();
         GameOfLife.SFMLDraw();
     }
