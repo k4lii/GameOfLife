@@ -4,13 +4,16 @@
 
 int main()
 {
-
-    GameOfLife GameOfLife(10,10);
+    GameOfLife GameOfLife(10, 10, 20);
     GameOfLife.RandGridCells();
     GameOfLife.printGrid();
-    // while (GameOfLife.window.isOpen()) {
-    //     GameOfLife.handle_event();
-    //     GameOfLife.draw();
-    // }
+    //essayer d'aficher chaque cellule
+    //coder la logique du jeu de la vie
+
+    while (GameOfLife.window.isOpen()) {
+        GameOfLife.SFMFEvent();
+        GameOfLife.Update();
+        GameOfLife.SFMLDraw();
+    }
     return 0;
 }

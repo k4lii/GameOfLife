@@ -7,21 +7,23 @@
 class GameOfLife {
 public:
     GameOfLife(int width, int height);
-    // void update();
-    void draw();
-    void handle_event();
+    void Update();
+    void SFMLDraw();
+    void SFMLEvents();
     void RandGridCells();
     void printGrid() const; // Print grid to console for debugging
     sf::RenderWindow window;
-
+    sf::VertexArray vertices_tab;
 private:
     std::vector<std::vector<bool>> game_map;
     sf::Event event;
+    inline int SFMLGetVertexIndex(int x, int y, int height);
     int width;
     int height;
+    int cell_size;
 
-    void initGrid();
-    int countNeighbors(int x, int y);
+    void InitGrid();
+    int CountNeighbors(int x, int y);
 };
 
 #endif
