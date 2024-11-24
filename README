@@ -9,8 +9,46 @@ brew install sfml
 
 #Objectives
 -> add de l'ia -> utilisation d'un model local tel que mistral
--> create a modular game that read complex config cells's files
+-> create a modular game that read complex config cells's RLE files
 -> modular code for linux/mac/windows
 -> most optimized/clean code i can
 -> add du réseau, genre faire des cluster de jeu de la vie en réseau par exemple
     -> lancer plusieurs instances du jeu de la vie et avoir un tableau de bord centrale qui affiche le grand tableau qui lie tout les autres connecté ensemble
+
+NOTES:
+
+-> Convertir un Fichier LIF en RLE avec Golly
+
+Etapes code:
+
+Importer le Fichier RLE : Utilise un parseur RLE simple pour lire la configuration initiale de la grille.
+Appliquer les Règles de Conway : Implémente uniquement les règles de base (naissance, survie, mort) dans le code.
+Boucle Principale : Actualise la grille à chaque itération et affiche l’état de chaque cellule.
+
+
+Changer de pilote graphique: (glxinfo | grep "OpenGL renderer")
+
+[Direct3D 12] -> Très performant
+export MESA_LOADER_DRIVER_OVERRIDE=d3d12
+
+[OpenGL natif] -> Très performant
+export MESA_LOADER_DRIVER_OVERRIDE=gl
+
+[LLVMpipe (rendu logiciel)] -> Pas performant
+export MESA_LOADER_DRIVER_OVERRIDE=llvmpipe
+export LIBGL_ALWAYS_SOFTWARE=1
+
+
+#note de rappel pour moi lol
+Vertex -> Un seul point ou sommet	sf::Vertex
+Vertices ->	Ensemble de plusieurs sommets	sf::VertexArray
+
+
+Voici un vertice:
+Chaque cellule (ou rectangle) dans la grille est définie par 4 sommets :
+A (x, y)      B (x+1, y)
+   +------------+
+   |            |
+   |            |
+   +------------+
+D (x, y+1)      C (x+1, y+1)

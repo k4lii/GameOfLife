@@ -1,22 +1,22 @@
-#include <SFML/Graphics.hpp>
 #include "GameOfLife.hpp"
+#include <iostream>
+#include <thread>
+#include <chrono>
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Game of Life");
+    GameOfLife game(2000, 2000, 1); // Adjust grid size as needed
+    game.RandGridCells();
 
-    GameOfLife game(800, 600);
+    // Load all RLE files from the "cells" folder
+    game.loadPatternsFromFolder("./cells");
 
-    while (window.isOpen()) {
-        sf::Event event;
-        while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
+    while (game.window.isOpen()) {
+        game.SFMLEvents();   // Handle events
+        game.ApplyRules();   // Update game logic
+        game.UpdateMatrix(); // Update vertices for rendering
+        game.SFMLDraw();     // Draw the updated grid
 
-        window.clear();
-        game.update();
-        game.draw(window);
-        window.display();
+        std::this_thread::sleep_for(std::chrono::milliseconds(1)); // Pause for visualization
     }
 
     return 0;
