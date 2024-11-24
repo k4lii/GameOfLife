@@ -1,9 +1,9 @@
 #include "GameOfLife.hpp"
 #include <iostream>
-#include <fstream>    // For std::ifstream
-#include <sstream>    // For std::istringstream
-#include <iostream>   // For std::cerr and std::cout (if not already included)
-
+#include <fstream>    // For file I/O
+#include <sstream>    // For string streams
+#include <filesystem> // For directory scanning
+namespace fs = std::filesystem; // Alias for convenience
 
 // Constructor
 GameOfLife::GameOfLife(int width, int height, int cell_size)
@@ -99,56 +99,84 @@ void GameOfLife::SFMLDraw() {
     this->window.display();
 }
 
-// Print the grid to the console
-void GameOfLife::printGrid() const {
-    for (int y = 0; y < height; ++y) {
-        for (int x = 0; x < width; ++x) {
-            std::cout << (game_map[y][x] ? "1" : "0") << " ";
-        }
-        std::cout << "\n";
-    }
-    std::cout << "------------------\n";
-}
-
 // Generate a random grid
 void GameOfLife::RandGridCells() {
-    std::srand(std::time(nullptr));
     for (int y = 0; y < height; ++y) {
         for (int x = 0; x < width; ++x) {
-            game_map[y][x] = (std::rand() % 2); // Random 0 or 1
+            game_map[y][x] = 0;
         }
     }
 }
 
-
-
-
+// Initialize grid dimensions
 void GameOfLife::initializeGrid(int width, int height) {
-    this->width = width;
-    this->height = height;
-    this->game_map.resize(height, std::vector<int>(width, 0));
-    window.create(sf::VideoMode(width * cell_size, height * cell_size), "Game of Life");
+    if (width > this->width || height > this->height) {
+        std::cerr << "Pattern exceeds current grid size.\n";
+        return;
+    }
 }
 
+// Load RLE pattern from file
 void GameOfLife::loadPatternFromFile(const std::string& filename) {
     std::ifstream file(filename);
     if (!file.is_open()) {
-        std::cerr << "Error opening file\n";
+        std::cerr << "Error opening file: " << filename << "\n";
         return;
     }
 
     std::string line;
     int x = 0, y = 0;
+    int startX = 5, startY = 5; // Offset to place pattern in grid
+    int currentX = startX, currentY = startY;
+
     while (std::getline(file, line)) {
-        if (line[0] == '#') continue; // Skip comments
+        if (line.empty() || line[0] == '#') continue;
+
         if (line.substr(0, 2) == "x ") {
             std::istringstream iss(line);
-            char ch;
-            iss >> ch >> ch >> x >> ch >> ch >> y;
-            initializeGrid(x, y);
+            std::string temp;
+            iss >> temp >> x >> temp >> temp >> y;
             continue;
         }
-        // Parse RLE data here and populate the grid
+
+        int count = 0;
+        for (char ch : line) {
+            if (isdigit(ch)) {
+                count = count * 10 + (ch - '0');
+            } else if (ch == 'b' || ch == 'o') {
+                count = (count == 0) ? 1 : count;
+                for (int i = 0; i < count; ++i) {
+                    if (currentX >= this->width) {
+                        currentX = startX;
+                        ++currentY;
+                    }
+                    if (currentY >= this->height) break;
+                    game_map[currentY][currentX] = (ch == 'o') ? 1 : 0;
+                    ++currentX;
+                }
+                count = 0;
+            } else if (ch == '$') {
+                currentX = startX;
+                ++currentY;
+            } else if (ch == '!') {
+                break;
+            }
+        }
     }
+
     file.close();
+    std::cout << "Loaded pattern from: " << filename << "\n";
+}
+
+// Load all RLE files from a folder
+void GameOfLife::loadPatternsFromFolder(const std::string& folderPath) {
+    try {
+        for (const auto& entry : fs::directory_iterator(folderPath)) {
+            if (entry.path().extension() == ".rle") {
+                loadPatternFromFile(entry.path().string());
+            }
+        }
+    } catch (const fs::filesystem_error& e) {
+        std::cerr << "Error accessing folder: " << e.what() << "\n";
+    }
 }

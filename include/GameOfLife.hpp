@@ -3,10 +3,12 @@
 
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <string>
 
 class GameOfLife {
 public:
     sf::RenderWindow window;
+
     GameOfLife(int width, int height, int cell_size);
 
     void SFMLDraw();
@@ -16,6 +18,7 @@ public:
     void printGrid() const;
     void UpdateMatrix();
     void loadPatternFromFile(const std::string& filename);
+    void loadPatternsFromFolder(const std::string& folderPath);
 
 private:
     std::vector<std::vector<int>> game_map;
@@ -24,9 +27,8 @@ private:
     int width;
     int height;
     int cell_size;
+
     void initializeGrid(int width, int height);
-
-
     void inline SFMLUpdate(int index, int x, int y);
     int inline CountAroundCells(int x, int y);
     void InitGrid();
