@@ -1,19 +1,22 @@
 #include "GameOfLife.hpp"
-#include <SFML/Graphics.hpp>
+// #include "GameOfLife.hpp"
+#include <iostream>
+#include <thread>
+#include <chrono>
 
+int main() {
+    GameOfLife game(1000, 1000, 2); // Grid size: 10x10, cell size: 40 pixels
+    game.RandGridCells();
+    // game.loadPatternFromFile("./test.rle");
 
-int main()
-{
-    GameOfLife GameOfLife(10, 10, 20);
-    GameOfLife.RandGridCells();
-    GameOfLife.printGrid();
-    //essayer d'aficher chaque cellule
-    //coder la logique du jeu de la vie
+    while (game.window.isOpen()) {
+        game.SFMLEvents();   // Handle events
+        game.ApplyRules();   // Update game logic
+        game.UpdateMatrix(); // Update vertices for rendering
+        game.SFMLDraw();     // Draw the updated grid
 
-    while (GameOfLife.window.isOpen()) {
-        GameOfLife.SFMLEvents();
-        GameOfLife.Update();
-        GameOfLife.SFMLDraw();
+        std::this_thread::sleep_for(std::chrono::milliseconds(200)); // Pause for visualization
     }
+
     return 0;
 }

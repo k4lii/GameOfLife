@@ -6,24 +6,30 @@
 
 class GameOfLife {
 public:
+    sf::RenderWindow window;
     GameOfLife(int width, int height, int cell_size);
-    void Update();
+
     void SFMLDraw();
     void SFMLEvents();
+    void ApplyRules();
     void RandGridCells();
-    void printGrid() const; // Print grid to console for debugging
-    sf::RenderWindow window;
+    void printGrid() const;
+    void UpdateMatrix();
+    void loadPatternFromFile(const std::string& filename);
+
 private:
-    std::vector<std::vector<bool>> game_map;
+    std::vector<std::vector<int>> game_map;
     sf::Event event;
-    inline int SFMLGetVertexIndex(int x, int y, int height);
+    sf::VertexArray vertices_tab;
     int width;
     int height;
     int cell_size;
-    sf::VertexArray vertices_tab;
+    void initializeGrid(int width, int height);
 
+
+    void inline SFMLUpdate(int index, int x, int y);
+    int inline CountAroundCells(int x, int y);
     void InitGrid();
-    int CountNeighbors(int x, int y);
 };
 
 #endif
