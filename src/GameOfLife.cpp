@@ -4,6 +4,8 @@
 #include <sstream>    // For string streams
 #include <filesystem> // For directory scanning
 namespace fs = std::filesystem; // Alias for convenience
+#include <cstdlib>  // For rand() and srand()
+#include <ctime>    // For seeding rand()
 
 // Constructor
 GameOfLife::GameOfLife(int width, int height, int cell_size)
@@ -99,15 +101,17 @@ void GameOfLife::SFMLDraw() {
     this->window.display();
 }
 
-// Generate a random grid
 void GameOfLife::RandGridCells() {
+    // Seed the random number generator with the current time
+    std::srand(std::time(0));
+    
     for (int y = 0; y < height; ++y) {
         for (int x = 0; x < width; ++x) {
-            game_map[y][x] = 0;
+            // Assign a random value: 1 (alive) or 0 (dead) with equal probability
+            game_map[y][x] = std::rand() % 2;
         }
     }
 }
-
 // Initialize grid dimensions
 void GameOfLife::initializeGrid(int width, int height) {
     if (width > this->width || height > this->height) {

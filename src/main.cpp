@@ -4,8 +4,8 @@
 #include <chrono>
 
 int main() {
-    GameOfLife game(100, 100, 20); // Adjust grid size as needed
-    //game.RandGridCells();
+    GameOfLife game(2000, 2000, 1); // Adjust grid size as needed
+    game.RandGridCells();
 
     // Load all RLE files from the "cells" folder
     game.loadPatternsFromFolder("./cells");
@@ -16,7 +16,7 @@ int main() {
         game.UpdateMatrix(); // Update vertices for rendering
         game.SFMLDraw();     // Draw the updated grid
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(200)); // Pause for visualization
+        std::this_thread::sleep_for(std::chrono::milliseconds(1)); // Pause for visualization
     }
 
     return 0;
